@@ -4,7 +4,6 @@ namespace Rappasoft\LaravelAuthenticationLog\Listeners;
 
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Rappasoft\LaravelAuthenticationLog\Notifications\NewDevice;
 
@@ -28,8 +27,9 @@ class LoginListener
             $ip = $this->request->ip();
 
             $ignoreIps = config('authentication-log.ignore_ips');
-            if(in_array( $ip, explode(';', $ignoreIps)))
+            if (in_array($ip, explode(';', $ignoreIps))) {
                 return;
+            }
 
             $user = $event->user;
             $userAgent = $this->request->userAgent();
